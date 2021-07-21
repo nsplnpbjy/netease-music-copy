@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "netease.searchurl",
+      "type": "java.lang.String",
+      "description": "Description for netease.searchurl."
+    },
+    {
+      "name": "netease.downloadUrl",
+      "type": "java.lang.String",
+      "description": "Description for netease.downloadUrl."
+    },
+    {
+      "name": "netease.lyricUrl",
+      "type": "java.lang.String",
+      "description": "Description for netease.lyricUrl."
+    }
+  ] }
