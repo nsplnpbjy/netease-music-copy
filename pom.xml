@@ -15,6 +15,7 @@
     <description>A copy website for netease music</description>
     <properties>
         <java.version>1.8</java.version>
+        <docker.image.prefix>com.springboot</docker.image.prefix>
     </properties>
     <repositories>
         <repository>
@@ -113,6 +114,24 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <configuration>
+                    <!--指定远程 docker api地址-->
+                    <dockerHost>http://192.168.0.111:2375</dockerHost>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <dockerDirectory>${project.basedir}/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
