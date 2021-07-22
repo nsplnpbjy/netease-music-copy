@@ -16,8 +16,7 @@ public class MyWebConfig implements WebMvcConfigurer {
          * 在interceptor中配置header了
          */
         corsRegistry.addMapping("/**")
-                .allowCredentials(true)
-                .allowedOrigins("http://localhost:8080")
+                .allowedOrigins("*")
                 .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
                 .allowedHeaders("*")
                 .maxAge(3600);

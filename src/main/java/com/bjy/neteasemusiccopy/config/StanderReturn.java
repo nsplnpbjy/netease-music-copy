@@ -9,11 +9,19 @@ import lombok.Data;
 public class StanderReturn <T>{
     private int code;
     private String msg;
+    private String dataName;
     private T data;
 
     public StanderReturn(T data){
         this.code = 0;
         this.msg = "ok";
         this.data = data;
+    }
+
+    public StanderReturn(T data,String dataName){
+        this.code = 0;
+        this.msg = "ok";
+        this.data = data;
+        this.dataName = dataName;
     }
 }

@@ -1,5 +1,6 @@
 package com.bjy.neteasemusiccopy.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bjy.neteasemusiccopy.config.NeteaseUrl;
 import com.bjy.neteasemusiccopy.config.SearchBody;
