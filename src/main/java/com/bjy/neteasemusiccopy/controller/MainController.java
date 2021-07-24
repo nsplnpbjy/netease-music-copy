@@ -2,6 +2,7 @@ package com.bjy.neteasemusiccopy.controller;
 
 import com.bjy.neteasemusiccopy.config.SearchBody;
 import com.bjy.neteasemusiccopy.config.StanderReturn;
+import com.bjy.neteasemusiccopy.service.CheckService;
 import com.bjy.neteasemusiccopy.service.DownloadService;
 import com.bjy.neteasemusiccopy.service.SearchService;
 import org.apache.ibatis.annotations.Param;
@@ -23,9 +24,17 @@ public class MainController {
     @Resource
     DownloadService downloadService;
 
+    @Resource
+    CheckService checkService;
+
     @PostMapping("/search")
     public StanderReturn search(@RequestBody SearchBody searchBody){
         return new StanderReturn(searchService.doSearch(searchBody));
+    }
+
+    @GetMapping("/isOk")
+    public StanderReturn isOk(@Param("id") String id){
+        return new StanderReturn(checkService.isOk(id));
     }
 
     @GetMapping("/music")
