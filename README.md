@@ -8,3 +8,5 @@ Dockerfile文件已经在项目中编写好，可以使用IDEA直接导入docker
 java -jar 包名.jar
 ```
 即可
+
+注意根据自身需求更改数据库配置和端口号
