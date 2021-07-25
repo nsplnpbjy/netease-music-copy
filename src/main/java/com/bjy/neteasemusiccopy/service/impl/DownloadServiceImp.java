@@ -43,7 +43,7 @@ public class DownloadServiceImp implements DownloadService {
     @SneakyThrows
     public ResponseEntity downloadMusic(String id,String fileName) {
 
-        File musicFile = new File(musicDir+"/"+fileName+id+".mp3");
+        File musicFile = new File(musicDir+"/"+fileName+id);
         if (musicFile.exists()) {
             log.info("本地有歌曲:"+fileName);
         }

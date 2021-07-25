@@ -16,6 +16,7 @@ import java.net.URLDecoder;
  * @author nsplnpbjy
  */
 @RestController
+@CrossOrigin
 public class MainController {
 
     @Resource
