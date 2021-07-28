@@ -120,7 +120,7 @@
                 <version>1.2.0</version>
                 <configuration>
                     <!--指定远程 docker api地址-->
-                    <dockerHost>http://192.168.0.111:2375</dockerHost>
+                    <dockerHost>http://192.168.0.104:2375</dockerHost>
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                     <dockerDirectory>${project.basedir}/docker</dockerDirectory>
                     <resources>
