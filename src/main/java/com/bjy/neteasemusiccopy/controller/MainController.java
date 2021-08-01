@@ -3,6 +3,7 @@ package com.bjy.neteasemusiccopy.controller;
 import com.bjy.neteasemusiccopy.config.SearchBody;
 import com.bjy.neteasemusiccopy.config.StanderReturn;
 import com.bjy.neteasemusiccopy.service.CheckService;
+import com.bjy.neteasemusiccopy.service.CommentsService;
 import com.bjy.neteasemusiccopy.service.DownloadService;
 import com.bjy.neteasemusiccopy.service.SearchService;
 import org.apache.ibatis.annotations.Param;
@@ -28,6 +29,9 @@ public class MainController {
     @Resource
     CheckService checkService;
 
+    @Resource
+    CommentsService commentsService;
+
     @PostMapping("/search")
     public StanderReturn search(@RequestBody SearchBody searchBody){
         return new StanderReturn(searchService.doSearch(searchBody));
@@ -46,6 +50,11 @@ public class MainController {
     @GetMapping("/lyric")
     public StanderReturn lyric(@Param("id") String id){
         return new StanderReturn(downloadService.downloadLyric(id));
+    }
+
+    @GetMapping("/comments")
+    public StanderReturn comments(@Param("id") String id,@Param("limit") String limit,@Param("offset") String offset){
+        return new StanderReturn(commentsService.getCommentsById(id,limit,offset));
     }
 
 }

@@ -16,12 +16,15 @@ public class NeteaseUrlConfig {
     private String downloadUrl;
     @Value("${netease.lyricUrl}")
     private String lyricUrl;
+    @Value("${netease.commentsUrl}")
+    private String commentsUrl;
     @Bean
     NeteaseUrl neteaseUrl(){
         NeteaseUrl neteaseUrl = new NeteaseUrl();
         neteaseUrl.setSearchUrl(searchUrl);
         neteaseUrl.setDownloadUrl(downloadUrl);
         neteaseUrl.setLyricUrl(lyricUrl);
+        neteaseUrl.setCommentsUrl(commentsUrl);
         return neteaseUrl;
     }
 }
