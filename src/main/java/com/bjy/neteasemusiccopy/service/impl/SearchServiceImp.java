@@ -1,11 +1,8 @@
 package com.bjy.neteasemusiccopy.service.impl;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bjy.neteasemusiccopy.config.NeteaseUrl;
 import com.bjy.neteasemusiccopy.config.SearchBody;
-import com.bjy.neteasemusiccopy.entity.SearchLog;
-import com.bjy.neteasemusiccopy.service.ISearchLogService;
 import com.bjy.neteasemusiccopy.service.SearchService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,17 +12,12 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * @author nsplnpbjy
  */
 @Service
 public class SearchServiceImp implements SearchService {
-
-    @Resource
-    ISearchLogService iSearchLogService;
 
     @Resource
     NeteaseUrl neteaseUrl;
@@ -45,7 +37,6 @@ public class SearchServiceImp implements SearchService {
         postParameters.add("type",searchBody.getType());
         HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(postParameters, httpHeaders);
         JSONObject response = restTemplate.postForObject(neteaseUrl.getSearchUrl(),httpEntity, JSONObject.class);
-        iSearchLogService.save(new SearchLog(UUID.randomUUID().toString(),searchBody.getS(),LocalDateTime.now()));
         return response;
     }
 }

@@ -12,3 +12,4 @@ java -jar 包名.jar
 即可
 
 注意根据自身需求更改数据库配置和端口号
+如果不使用数据库，可将配置文件中dataoption.isEnable=true改为false

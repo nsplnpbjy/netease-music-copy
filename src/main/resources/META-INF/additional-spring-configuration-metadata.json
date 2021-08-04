@@ -14,5 +14,10 @@
       "name": "netease.lyricUrl",
       "type": "java.lang.String",
       "description": "Description for netease.lyricUrl."
+    },
+    {
+      "name": "dataoption.isEnable",
+      "type": "java.lang.Boolean",
+      "description": "Description for dataoption.isEnable."
     }
   ] }
