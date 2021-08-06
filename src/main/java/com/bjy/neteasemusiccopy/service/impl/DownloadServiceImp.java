@@ -1,10 +1,9 @@
 package com.bjy.neteasemusiccopy.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bjy.neteasemusiccopy.config.MvUrlAndQuality;
 import com.bjy.neteasemusiccopy.config.NeteaseUrl;
 import com.bjy.neteasemusiccopy.service.DownloadService;
-import com.bjy.neteasemusiccopy.util.StringCreaterForNetease;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
@@ -90,11 +89,8 @@ public class DownloadServiceImp implements DownloadService {
         return ResponseEntity.ok().headers(headers).contentLength(musicFile.length()).contentType(MediaType.parseMediaType("application/octet-stream")).body(new FileSystemResource(musicFile));
     }
 
-    @SneakyThrows
-    @Override
-    public ResponseEntity downloadMv(String id) {
-        int quality = 0;
-        String mvPlayUrl = null;
+    private MvUrlAndQuality getTrueUrl(String id) throws IOException {
+        MvUrlAndQuality mvUrlAndQuality = null;
         String url = neteaseUrl.getGetMvUrl();
         url = url+"?id="+id+"&type=mp4";
         HttpHeaders headers = new HttpHeaders();
@@ -114,7 +110,6 @@ public class DownloadServiceImp implements DownloadService {
         headers.put(HttpHeaders.COOKIE,cookies);
         HttpEntity<String> entity = new HttpEntity(headers);
         ResponseEntity<String> res = restTemplate.exchange(url,HttpMethod.GET,entity,String.class);
-        log.info(res.getBody());
         JSONObject info = JSONObject.parseObject(res.getBody());
         if (info.isEmpty()){
             throw new IOException("请求MV出错，可能是网易服务器忙");
@@ -127,22 +122,28 @@ public class DownloadServiceImp implements DownloadService {
             throw new IOException("此歌曲MV为空");
         }
         if (urls.containsKey("720")){
-            mvPlayUrl = urls.getString("720");
-            quality = 720;
+            mvUrlAndQuality = new MvUrlAndQuality(urls.getString("720"),720);
         }
         else  if (urls.containsKey("1080")){
-            mvPlayUrl = urls.getString("1080");
-            quality = 1080;
+            mvUrlAndQuality = new MvUrlAndQuality(urls.getString("1080"),1080);
         }
         else  if (urls.containsKey("480")){
-            mvPlayUrl = urls.getString("480");
-            quality = 480;
+            mvUrlAndQuality = new MvUrlAndQuality(urls.getString("480"),480);
         }
         else  if (urls.containsKey("240")){
-            mvPlayUrl = urls.getString("240");
-            quality = 240;
+            mvUrlAndQuality = new MvUrlAndQuality(urls.getString("240"),240);
         }
+        return mvUrlAndQuality;
+    }
 
+    @SneakyThrows
+    @Override
+    public ResponseEntity downloadMv(String id) {
+        int quality = 0;
+        String mvPlayUrl = null;
+        MvUrlAndQuality mvUrlAndQuality = getTrueUrl(id);
+        mvPlayUrl = mvUrlAndQuality.getMvPlayUrl();
+        quality = mvUrlAndQuality.getQuality();
         File mvFile = new File(musicDir+"/"+id+quality+".mp4");
         if (!mvFile.exists()){
             mvFile.createNewFile();
@@ -168,7 +169,7 @@ public class DownloadServiceImp implements DownloadService {
         //解决中文乱码以及特殊符号的问题
         String fileName = mvFile.getName();
 
-        headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Content-Disposition","attachment; filename=" +  URLEncoder.encode(fileName ,"UTF8"));
         headers.add("Pragma", "no-cache");
@@ -177,6 +178,15 @@ public class DownloadServiceImp implements DownloadService {
         headers.add("ETag", String.valueOf(System.currentTimeMillis()));
         log.info(String.valueOf(mvFile.length()));
         return ResponseEntity.ok().headers(headers).contentLength(mvFile.length()).contentType(MediaType.parseMediaType("application/octet-stream")).body(new FileSystemResource(mvFile));
+    }
 
+    @SneakyThrows
+    @Override
+    public String trueMvUrl(String id) {
+        MvUrlAndQuality mvUrlAndQuality = getTrueUrl(id);
+        if (mvUrlAndQuality.getMvPlayUrl().isEmpty()){
+            throw new IOException("获取真实地址错误");
+        }
+        return mvUrlAndQuality.getMvPlayUrl();
     }
 }

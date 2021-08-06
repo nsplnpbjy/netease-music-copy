@@ -14,4 +14,6 @@ public interface DownloadService {
     public ResponseEntity downloadMusic(String id, String fileName);
 
     public ResponseEntity downloadMv(String id);
+
+    public String trueMvUrl(String id);
 }

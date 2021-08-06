@@ -62,4 +62,9 @@ public class MainController {
         return downloadService.downloadMv(id);
     }
 
+    @GetMapping("/getTrueMvUrl")
+    public String getTrueMvUrl(@Param("id")String  id){
+        return downloadService.trueMvUrl(id);
+    }
+
 }
