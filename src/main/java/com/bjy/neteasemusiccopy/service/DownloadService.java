@@ -12,4 +12,6 @@ public interface DownloadService {
     public JSONObject downloadLyric(String id);
 
     public ResponseEntity downloadMusic(String id, String fileName);
+
+    public ResponseEntity downloadMv(String id);
 }

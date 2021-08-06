@@ -2,7 +2,6 @@ package com.bjy.neteasemusiccopy.service.impl;
 
 import com.bjy.neteasemusiccopy.config.NeteaseUrl;
 import com.bjy.neteasemusiccopy.service.CheckService;
-import com.bjy.neteasemusiccopy.service.DownloadService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 
 @Service
 public class CheckServiceImp implements CheckService {

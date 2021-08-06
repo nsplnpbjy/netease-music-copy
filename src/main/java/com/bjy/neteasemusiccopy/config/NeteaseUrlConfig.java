@@ -18,6 +18,9 @@ public class NeteaseUrlConfig {
     private String lyricUrl;
     @Value("${netease.commentsUrl}")
     private String commentsUrl;
+    @Value("${netease.getMvUrl}")
+    private String getMvUrl;
+
     @Bean
     NeteaseUrl neteaseUrl(){
         NeteaseUrl neteaseUrl = new NeteaseUrl();
@@ -25,6 +28,7 @@ public class NeteaseUrlConfig {
         neteaseUrl.setDownloadUrl(downloadUrl);
         neteaseUrl.setLyricUrl(lyricUrl);
         neteaseUrl.setCommentsUrl(commentsUrl);
+        neteaseUrl.setGetMvUrl(getMvUrl);
         return neteaseUrl;
     }
 }

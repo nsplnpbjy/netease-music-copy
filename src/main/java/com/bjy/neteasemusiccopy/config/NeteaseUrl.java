@@ -8,4 +8,5 @@ public class NeteaseUrl {
     private String downloadUrl;
     private String lyricUrl;
     private String commentsUrl;
+    private String getMvUrl;
 }

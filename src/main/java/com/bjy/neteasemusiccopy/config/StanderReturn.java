@@ -24,4 +24,10 @@ public class StanderReturn <T>{
         this.data = data;
         this.dataName = dataName;
     }
+
+    public StanderReturn(T data,int code,String msg){
+        this.code = code;
+        this.data = data;
+        this.msg = msg;
+    }
 }

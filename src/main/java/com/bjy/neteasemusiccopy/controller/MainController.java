@@ -57,4 +57,9 @@ public class MainController {
         return new StanderReturn(commentsService.getCommentsById(id,limit,offset));
     }
 
+    @GetMapping("/mv")
+    public ResponseEntity mv(@Param("id")String  id){
+        return downloadService.downloadMv(id);
+    }
+
 }
